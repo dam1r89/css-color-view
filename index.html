@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>css color view</title>
+  <style>
+    #input{
+      height: 400px;
+    }
+    .preview{
+      position: relative;
+    }
+    .preview div{
+      position: absolute;
+      top: -4px;
+      right: -20px;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div id="input" contenteditable="true">Paste here</div>
+  <script>
+    ta = document.getElementById('input');
+    ta.addEventListener("input", function() {
+
+      ta.innerHTML = ta.innerHTML
+        .replace(/<span(.*?)\/span>/gi, '')             //trim previous spans
+        .replace(/#([0-9a-f]{6}|[0-9a-f]{3})/gi, repl)  //preview hex colors
+        .replace(/rgba?\(.*?\)/gi, repl);               //preview rgb(a) colors
+      function repl(color){
+        return color + '<span class="preview"><div style="background:' + color + '"></div><span>';
+
+      }
+    }, false);
+  </script>
+</body>
+</html>
