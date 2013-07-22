@@ -24,12 +24,13 @@
   <div id="input" contenteditable="true">Paste here</div>
   <script>
     ta = document.getElementById('input');
+    ta.innerHTML = localStorage.getItem('save') || '';
     ta.addEventListener("input", function() {
 
-      ta.innerHTML = ta.innerHTML
+      localStorage.setItem('save', ta.innerHTML = ta.innerHTML
         .replace(/<span(.*?)\/span>/gi, '')             //trim previous spans
         .replace(/#([0-9a-f]{6}|[0-9a-f]{3})/gi, repl)  //preview hex colors
-        .replace(/rgba?\(.*?\)/gi, repl);               //preview rgb(a) colors
+        .replace(/rgba?\(.*?\)/gi, repl));               //preview rgb(a) colors
       function repl(color){
         return color + '<span class="preview"><div style="background:' + color + '"></div><span>';
 
